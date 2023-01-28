@@ -232,7 +232,7 @@ class CanvasDownloader(CanvasApi):
 
         if name:  # if a name in given
             # Check the file name
-            file_name = name
+            file_name = name.replace("/", "_")
             # Checks if the file exists
             file_path = os.path.join(self.out_dir, *folder_path, file_name)
             if os.path.exists(file_path):
@@ -249,7 +249,7 @@ class CanvasDownloader(CanvasApi):
             # Check the file name
             if not content_header:
                 return
-            file_name = get_file_name_by_header(content_header)
+            file_name = get_file_name_by_header(content_header).replace("/", "_")
             if not file_name:
                 return
             # Checks if the file exists
