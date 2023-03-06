@@ -99,14 +99,15 @@ class CanvasApi:
 
     def get_files_from_folder(self, folder_id: int, recent=True) -> list:
         """Gets the files of a folder"""
-        # 'per_page' param below is set to 100 files per folder
+        # 'per_page' param below is set to 500 files per folder
         if recent:
             self.__get(
                 f"folders/{folder_id}/files",
                 params={"sort": "updated_at", "order": "desc", 
-                        "per_page": 100},
+                        "per_page": 500},
             )
-        return self.__get(f"folders/{folder_id}/files")
+        return self.__get(f"folders/{folder_id}/files",
+                          params={"per_page": 500})
 
     def get_modules_items(self, course_id: int, module_id: int) -> list:
         """Gets the module items of a course"""
@@ -116,7 +117,8 @@ class CanvasApi:
 
     def get_file_from_id(self, course_id: int, file_id: int) -> dict:
         """Gets a file of a specific course using it's id"""
-        return self.__get(f"courses/{course_id}/files/{file_id}")
+        return self.__get(f"courses/{course_id}/files/{file_id}",
+                          params={"per_page": 500})
 
     def get_folder_from_id(self, course_id: int, folder_id: int) -> dict:
         """Gets a folder from a specific course using it's id"""
